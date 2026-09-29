@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OrganisationIndexRouteImport } from './routes/organisation.index'
+import { Route as OrganisationRegimentRouteImport } from './routes/organisation.$regiment'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrganisationIndexRoute = OrganisationIndexRouteImport.update({
+  id: '/organisation/',
+  path: '/organisation/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganisationRegimentRoute = OrganisationRegimentRouteImport.update({
+  id: '/organisation/$regiment',
+  path: '/organisation/$regiment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/organisation/': typeof OrganisationIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/organisation': typeof OrganisationIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/organisation/': typeof OrganisationIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/organisation/$regiment' | '/organisation/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/organisation/$regiment' | '/organisation'
+  id: '__root__' | '/' | '/organisation/$regiment' | '/organisation/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OrganisationRegimentRoute: typeof OrganisationRegimentRoute
+  OrganisationIndexRoute: typeof OrganisationIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/organisation/': {
+      id: '/organisation/'
+      path: '/organisation'
+      fullPath: '/organisation/'
+      preLoaderRoute: typeof OrganisationIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organisation/$regiment': {
+      id: '/organisation/$regiment'
+      path: '/organisation/$regiment'
+      fullPath: '/organisation/$regiment'
+      preLoaderRoute: typeof OrganisationRegimentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OrganisationRegimentRoute: OrganisationRegimentRoute,
+  OrganisationIndexRoute: OrganisationIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
