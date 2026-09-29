@@ -1,6 +1,6 @@
 import type { MediaDocumentaire } from "./types";
 
-export const mediasEquipements: Record<string, MediaDocumentaire> = {
+export const mediasEquipements = {
   "caesar": {
     src: "/__l5e/assets-v1/3fbcd868-13a1-4139-8d79-ee8300062131/caesar.jpg",
     alt: "Canon CAESAR de l’armée française en tir",
@@ -141,4 +141,4 @@ export const mediasEquipements: Record<string, MediaDocumentaire> = {
     licence: "CC BY-SA 4.0",
     sourceUrl: "https://commons.wikimedia.org/w/index.php?search=vbci&title=Special:MediaSearch&type=image",
   },
-};
+} satisfies Record<string, MediaDocumentaire>;

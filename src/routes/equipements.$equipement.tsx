@@ -22,7 +22,7 @@ export const Route = createFileRoute("/equipements/$equipement")({
     const e = loaderData.equipement;
     const titre = `${e.nom} — ${e.role}`;
     const desc = e.description.slice(0, 180);
-    const media = mediasEquipements[e.id];
+    const media = mediasEquipements[e.id as keyof typeof mediasEquipements];
     return {
       meta: [
         { title: titre },
@@ -55,7 +55,7 @@ function FicheEquipement() {
   const favori = pret && estFavori(`eq-${e.id}`);
   const utilisateurs = regiments.filter((r) => r.equipements.includes(e.id));
   const operations = engagements.filter((engagement) => engagement.equipementIds.includes(e.id));
-  const media = mediasEquipements[e.id];
+  const media = mediasEquipements[e.id as keyof typeof mediasEquipements];
 
   return (
     <div>

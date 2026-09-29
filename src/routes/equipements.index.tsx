@@ -69,7 +69,7 @@ function EquipementsPage() {
             params={{ equipement: e.id }}
             className="group flex flex-col overflow-hidden bg-card transition-colors hover:bg-secondary"
           >
-            <img src={mediasEquipements[e.id].src} alt={mediasEquipements[e.id].alt} loading="lazy" className="aspect-[16/9] w-full object-cover grayscale-[20%] transition-transform duration-300 group-hover:scale-[1.02]" />
+            <img src={mediasEquipements[e.id as keyof typeof mediasEquipements].src} alt={mediasEquipements[e.id as keyof typeof mediasEquipements].alt} loading="lazy" className="aspect-[16/9] w-full object-cover grayscale-[20%] transition-transform duration-300 group-hover:scale-[1.02]" />
             <span className="flex flex-1 flex-col p-5">
               <span className="rule-label">{categoriesEquipement[e.categorie].titre}</span>
               <span className="mt-2 text-xl text-foreground">{e.nom}</span>
