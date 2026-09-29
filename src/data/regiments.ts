@@ -354,7 +354,7 @@ export const regiments: Regiment[] = [
     equipements: ["jaguar", "hk416f"],
   },
   {
-    id: "7e-bcа",
+    id: "7e-bca",
     nom: "7e bataillon de chasseurs alpins",
     sigle: "7e BCA",
     arme: "montagne",
