@@ -4,6 +4,7 @@ import { ArrowLeft, Star } from "lucide-react";
 import { categoriesEquipement, equipements } from "@/data/equipements";
 import { armes } from "@/data/organisation";
 import { regiments } from "@/data/regiments";
+import { engagements, labelsTypeEngagement } from "@/data/operations";
 import { useFavoris } from "@/hooks/use-favoris";
 import { cn } from "@/lib/utils";
 
@@ -49,6 +50,7 @@ function FicheEquipement() {
   const { estFavori, basculer, pret } = useFavoris();
   const favori = pret && estFavori(`eq-${e.id}`);
   const utilisateurs = regiments.filter((r) => r.equipements.includes(e.id));
+  const operations = engagements.filter((engagement) => engagement.equipementIds.includes(e.id));
 
   return (
     <div>
@@ -114,6 +116,20 @@ function FicheEquipement() {
                     className="rounded-sm border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
                   >
                     {r.sigle}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {operations.length > 0 && (
+            <section>
+              <h2 className="stencil text-sm text-muted-foreground">Engagements documentés</h2>
+              <div className="mt-3 divide-y divide-border border-y border-border">
+                {operations.map((operation) => (
+                  <Link key={operation.id} to="/operations/$operation" params={{ operation: operation.id }} className="flex items-center justify-between gap-4 py-3 text-sm transition-colors hover:text-primary">
+                    <span>{operation.nom}</span>
+                    <span className="rule-label shrink-0">{labelsTypeEngagement[operation.type]} · {operation.anneeDebut}</span>
                   </Link>
                 ))}
               </div>

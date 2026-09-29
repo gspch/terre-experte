@@ -9,6 +9,7 @@ const liens = [
   { to: "/organisation", label: "Organisation" },
   { to: "/grades", label: "Grades" },
   { to: "/equipements", label: "Équipements" },
+  { to: "/operations", label: "Opérations" },
   { to: "/ecoles", label: "Écoles" },
   { to: "/glossaire", label: "Glossaire" },
 ] as const;
@@ -97,13 +98,14 @@ export function SiteFooter() {
         <p className="stencil text-sm text-foreground">Manuel interactif de l'armée de terre</p>
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
           Ressource pédagogique indépendante, rédigée à partir d'informations publiques. Elle n'émane
-          pas du ministère des Armées et n'a aucune valeur officielle. Les insignes régimentaires sont
-          décrits en texte plutôt que reproduits.
+          pas du ministère des Armées et n'a aucune valeur officielle. Les images sont créditées sur
+          chaque fiche et restent soumises à la licence indiquée.
         </p>
         <nav className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
           <Link to="/organisation" className="hover:text-foreground">Organisation</Link>
           <Link to="/grades" className="hover:text-foreground">Grades</Link>
           <Link to="/equipements" className="hover:text-foreground">Équipements</Link>
+          <Link to="/operations" className="hover:text-foreground">Opérations</Link>
           <Link to="/ecoles" className="hover:text-foreground">Écoles</Link>
           <Link to="/glossaire" className="hover:text-foreground">Glossaire</Link>
         </nav>

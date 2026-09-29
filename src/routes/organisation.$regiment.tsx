@@ -6,6 +6,7 @@ import { armes, brigades, divisions } from "@/data/organisation";
 import { ecoles } from "@/data/ecoles";
 import { equipements } from "@/data/equipements";
 import { regiments } from "@/data/regiments";
+import { engagements, labelsTypeEngagement } from "@/data/operations";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/organisation/$regiment")({
@@ -57,6 +58,7 @@ function FicheRegiment() {
   const ecole = ecoles.find((e) => e.id === arme.ecoleId);
   const materiels = equipements.filter((e) => r.equipements.includes(e.id));
   const favori = pret && estFavori(`reg-${r.id}`);
+  const operations = engagements.filter((engagement) => engagement.regimentIds.includes(r.id));
 
   return (
     <div>
@@ -104,6 +106,20 @@ function FicheRegiment() {
             <h2 className="stencil text-sm text-muted-foreground">Spécialité</h2>
             <p className="mt-3 text-lg text-foreground">{r.specialite}</p>
           </section>
+
+          {operations.length > 0 && (
+            <section>
+              <h2 className="stencil text-sm text-muted-foreground">Engagements connus</h2>
+              <div className="mt-3 divide-y divide-border border-y border-border">
+                {operations.map((operation) => (
+                  <Link key={operation.id} to="/operations/$operation" params={{ operation: operation.id }} className="flex items-center justify-between gap-4 py-3 text-sm transition-colors hover:text-primary">
+                    <span>{operation.nom}</span>
+                    <span className="rule-label shrink-0">{labelsTypeEngagement[operation.type]} · {operation.anneeDebut}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           <section>
             <h2 className="stencil text-sm text-muted-foreground">Histoire et traditions</h2>
