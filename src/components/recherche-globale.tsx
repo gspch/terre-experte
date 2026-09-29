@@ -67,9 +67,11 @@ export function RechercheGlobale({ variant = "bar" }: { variant?: "bar" | "icone
             {resultats.map((r) => (
               <Link
                 key={r.id}
-                to={r.to}
-                params={r.params as never}
-                hash={r.hash}
+                {...({
+                  to: r.to,
+                  ...(r.params ? { params: r.params } : {}),
+                  ...(r.hash ? { hash: r.hash } : {}),
+                } as React.ComponentProps<typeof Link>)}
                 onClick={() => setOuvert(false)}
                 className="flex items-start gap-3 rounded-sm px-3 py-2.5 transition-colors hover:bg-secondary"
               >
