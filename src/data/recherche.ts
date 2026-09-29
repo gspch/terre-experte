@@ -4,8 +4,9 @@ import { glossaire } from "./glossaire";
 import { grades } from "./grades";
 import { engagements, labelsTypeEngagement } from "./operations";
 import { regiments } from "./regiments";
+import { forcesPartenaires } from "./reserve";
 
-export type ResultatType = "Régiment" | "Grade" | "Équipement" | "École" | "Sigle" | "Histoire";
+export type ResultatType = "Régiment" | "Grade" | "Équipement" | "École" | "Sigle" | "Histoire" | "Réserve";
 
 export interface Resultat {
   id: string;
@@ -71,6 +72,15 @@ export const indexRecherche: Resultat[] = [
     to: "/operations/$operation",
     params: { operation: e.id },
     texte: `${e.nom} ${e.lieu} ${e.zone} ${e.resume} ${e.contexte}`.toLowerCase(),
+  })),
+  ...forcesPartenaires.map((f) => ({
+    id: `res-${f.id}`,
+    type: "Réserve" as const,
+    titre: f.titre,
+    sousTitre: f.statut,
+    to: "/reserve",
+    hash: f.id,
+    texte: `${f.titre} ${f.resume} ${f.points.map((p) => `${p.titre} ${p.detail}`).join(" ")}`.toLowerCase(),
   })),
 ];
 

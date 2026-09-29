@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Boxes, GraduationCap, Map, Network, Star } from "lucide-react";
+import { ArrowRight, Boxes, GraduationCap, Map, Network, Shield, Star } from "lucide-react";
 
 import { chiffresCles } from "@/data/organisation";
 import { RechercheGlobale } from "@/components/recherche-globale";
@@ -38,7 +38,7 @@ const domaines = [
     icone: Network,
     titre: "Organisation",
     resume:
-      "Du chef d'état-major au régiment : divisions, brigades, armes et près de cinquante unités détaillées.",
+      "Du chef d'état-major au régiment : divisions, brigades, armes et près de quatre-vingt-dix unités détaillées.",
   },
   {
     to: "/grades",
@@ -57,6 +57,12 @@ const domaines = [
     icone: GraduationCap,
     titre: "Écoles et parcours",
     resume: "Saint-Cyr, ENSOA, écoles d'armes et centres de spécialisation, plus les carrières types.",
+  },
+  {
+    to: "/reserve",
+    icone: Shield,
+    titre: "Réserve et forces partenaires",
+    resume: "Réservistes, gendarmes et pompiers militaires : qui fait partie de l'armée de terre.",
   },
 ] as const;
 
@@ -99,7 +105,7 @@ function Accueil() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="stencil text-sm text-muted-foreground">Les cinq domaines</h2>
+        <h2 className="stencil text-sm text-muted-foreground">Les six domaines</h2>
         <div className="mt-6 grid gap-px bg-border sm:grid-cols-2">
           {domaines.map((d) => (
             <Link

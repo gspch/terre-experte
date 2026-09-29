@@ -120,7 +120,7 @@ export const divisions: Division[] = [
     sigle: "CMD",
     etatMajor: "Lille, Bruz, Lyon, Villacoublay",
     role: "Appuis et soutiens de niveau divisionnaire : ALAT, renseignement, transmissions, logistique, forces spéciales.",
-    brigades: ["4e-baero", "cra", "ctsi", "1re-bl", "bfst"],
+    brigades: ["4e-baero", "cra", "ctsi", "1re-bl", "bfst", "hors-brigade"],
   },
 ];
 
@@ -212,6 +212,14 @@ export const brigades: Brigade[] = [
     division: "Commandements spécialisés",
     etatMajor: "Pau",
     specialite: "Opérations spéciales : renseignement, action, appui aérien dédié.",
+  },
+  {
+    id: "hors-brigade",
+    nom: "Formations hors brigade",
+    sigle: "HB",
+    division: "Commandements spécialisés",
+    etatMajor: "Divers",
+    specialite: "Forces outre-mer et à l'étranger, formation légion, réserve, appuis divisionnaires et pompiers militaires.",
   },
 ];
 
