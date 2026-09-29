@@ -8,3 +8,9 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Architecture
+
+- Le contenu encyclopédique (régiments, grades, équipements, écoles, glossaire, organisation) vit en données statiques typées sous `src/data/`, sans backend — l'app est en consultation seule et doit rester déployable sans base de données.
+- L'index de recherche globale est dérivé de `src/data/` dans `src/data/recherche.ts` : toute nouvelle catégorie de contenu doit y être ajoutée pour rester trouvable.
+- Les favoris sont stockés dans `localStorage` via `src/hooks/use-favoris.ts`, lus après hydratation pour éviter les écarts de rendu serveur/client.

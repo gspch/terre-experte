@@ -1,4 +1,4 @@
-import type { Grade } from "./types";
+import type { Corps, Grade } from "./types";
 
 export const grades: Grade[] = [
   {
@@ -276,7 +276,7 @@ export const grades: Grade[] = [
   },
 ];
 
-export const corpsLabels: Record<string, { titre: string; resume: string }> = {
+export const corpsLabels: Record<Corps, { titre: string; resume: string }> = {
   rang: {
     titre: "Militaires du rang",
     resume:

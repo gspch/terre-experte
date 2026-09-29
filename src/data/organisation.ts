@@ -91,7 +91,6 @@ export const armes: Arme[] = [
     id: "commandement",
     nom: "Commandement et soutien",
     couleur: "Variable",
-    devise: undefined,
     role: "États-majors, renseignement, santé, forces spéciales et commandements spécialisés.",
   },
 ];

@@ -44,11 +44,10 @@ export function Galon({ grade, className }: { grade: Grade; className?: string }
           Array.from({ length: nombre }).map((_, i) => (
             <div
               key={i}
-              className={cn(
-                "h-[3px] w-full rounded-full",
-                i === nombre - 1 && ton === "or" ? tons.or : tons.laine,
-              )}
-              style={{ clipPath: "polygon(0 100%, 50% 0, 100% 100%, 50% 45%)" }}
+              className={cn("h-2 w-full", i === nombre - 1 && ton === "or" ? tons.or : tons.laine)}
+              style={{
+                clipPath: "polygon(0 100%, 50% 25%, 100% 100%, 100% 65%, 50% 0, 0 65%)",
+              }}
             />
           ))
         ))}
