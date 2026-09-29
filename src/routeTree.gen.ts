@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EcolesRouteImport } from './routes/ecoles'
+import { Route as GlossaireRouteImport } from './routes/glossaire'
 import { Route as GradesRouteImport } from './routes/grades'
 import { Route as EquipementsIndexRouteImport } from './routes/equipements.index'
 import { Route as EquipementsEquipementRouteImport } from './routes/equipements.$equipement'
@@ -19,6 +21,16 @@ import { Route as OrganisationRegimentRouteImport } from './routes/organisation.
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EcolesRoute = EcolesRouteImport.update({
+  id: '/ecoles',
+  path: '/ecoles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GlossaireRoute = GlossaireRouteImport.update({
+  id: '/glossaire',
+  path: '/glossaire',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GradesRoute = GradesRouteImport.update({
@@ -49,6 +61,8 @@ const OrganisationRegimentRoute = OrganisationRegimentRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ecoles': typeof EcolesRoute
+  '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
   '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
@@ -57,6 +71,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ecoles': typeof EcolesRoute
+  '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
   '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
@@ -66,6 +82,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ecoles': typeof EcolesRoute
+  '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
   '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
@@ -76,6 +94,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ecoles'
+    | '/glossaire'
     | '/grades'
     | '/equipements/$equipement'
     | '/organisation/$regiment'
@@ -84,6 +104,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ecoles'
+    | '/glossaire'
     | '/grades'
     | '/equipements/$equipement'
     | '/organisation/$regiment'
@@ -92,6 +114,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ecoles'
+    | '/glossaire'
     | '/grades'
     | '/equipements/$equipement'
     | '/organisation/$regiment'
@@ -101,6 +125,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EcolesRoute: typeof EcolesRoute
+  GlossaireRoute: typeof GlossaireRoute
   GradesRoute: typeof GradesRoute
   EquipementsEquipementRoute: typeof EquipementsEquipementRoute
   OrganisationRegimentRoute: typeof OrganisationRegimentRoute
@@ -115,6 +141,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ecoles': {
+      id: '/ecoles'
+      path: '/ecoles'
+      fullPath: '/ecoles'
+      preLoaderRoute: typeof EcolesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/glossaire': {
+      id: '/glossaire'
+      path: '/glossaire'
+      fullPath: '/glossaire'
+      preLoaderRoute: typeof GlossaireRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/grades': {
@@ -157,6 +197,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EcolesRoute: EcolesRoute,
+  GlossaireRoute: GlossaireRoute,
   GradesRoute: GradesRoute,
   EquipementsEquipementRoute: EquipementsEquipementRoute,
   OrganisationRegimentRoute: OrganisationRegimentRoute,
