@@ -25,7 +25,7 @@ const R = ([id, sigle, nom, arme, brigade, garnison, departement, specialite, hi
   specialite,
   histoire,
   equipements,
-  devise,
+  ...(devise ? { devise } : {}),
   insigne: "Insigne régimentaire homologué ; visuel non reproduit faute de source libre vérifiée.",
 });
 
