@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EcolesRouteImport } from './routes/ecoles'
+import { Route as GlossaireRouteImport } from './routes/glossaire'
+import { Route as GradesRouteImport } from './routes/grades'
+import { Route as EquipementsIndexRouteImport } from './routes/equipements.index'
+import { Route as EquipementsEquipementRouteImport } from './routes/equipements.$equipement'
+import { Route as OrganisationIndexRouteImport } from './routes/organisation.index'
+import { Route as OrganisationRegimentRouteImport } from './routes/organisation.$regiment'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EcolesRoute = EcolesRouteImport.update({
+  id: '/ecoles',
+  path: '/ecoles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GlossaireRoute = GlossaireRouteImport.update({
+  id: '/glossaire',
+  path: '/glossaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GradesRoute = GradesRouteImport.update({
+  id: '/grades',
+  path: '/grades',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipementsIndexRoute = EquipementsIndexRouteImport.update({
+  id: '/equipements/',
+  path: '/equipements/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipementsEquipementRoute = EquipementsEquipementRouteImport.update({
+  id: '/equipements/$equipement',
+  path: '/equipements/$equipement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganisationIndexRoute = OrganisationIndexRouteImport.update({
+  id: '/organisation/',
+  path: '/organisation/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganisationRegimentRoute = OrganisationRegimentRouteImport.update({
+  id: '/organisation/$regiment',
+  path: '/organisation/$regiment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ecoles': typeof EcolesRoute
+  '/glossaire': typeof GlossaireRoute
+  '/grades': typeof GradesRoute
+  '/equipements/$equipement': typeof EquipementsEquipementRoute
+  '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/equipements/': typeof EquipementsIndexRoute
+  '/organisation/': typeof OrganisationIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ecoles': typeof EcolesRoute
+  '/glossaire': typeof GlossaireRoute
+  '/grades': typeof GradesRoute
+  '/equipements/$equipement': typeof EquipementsEquipementRoute
+  '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/equipements': typeof EquipementsIndexRoute
+  '/organisation': typeof OrganisationIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ecoles': typeof EcolesRoute
+  '/glossaire': typeof GlossaireRoute
+  '/grades': typeof GradesRoute
+  '/equipements/$equipement': typeof EquipementsEquipementRoute
+  '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/equipements/': typeof EquipementsIndexRoute
+  '/organisation/': typeof OrganisationIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ecoles'
+    | '/glossaire'
+    | '/grades'
+    | '/equipements/$equipement'
+    | '/organisation/$regiment'
+    | '/equipements/'
+    | '/organisation/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ecoles'
+    | '/glossaire'
+    | '/grades'
+    | '/equipements/$equipement'
+    | '/organisation/$regiment'
+    | '/equipements'
+    | '/organisation'
+  id:
+    | '__root__'
+    | '/'
+    | '/ecoles'
+    | '/glossaire'
+    | '/grades'
+    | '/equipements/$equipement'
+    | '/organisation/$regiment'
+    | '/equipements/'
+    | '/organisation/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EcolesRoute: typeof EcolesRoute
+  GlossaireRoute: typeof GlossaireRoute
+  GradesRoute: typeof GradesRoute
+  EquipementsEquipementRoute: typeof EquipementsEquipementRoute
+  OrganisationRegimentRoute: typeof OrganisationRegimentRoute
+  EquipementsIndexRoute: typeof EquipementsIndexRoute
+  OrganisationIndexRoute: typeof OrganisationIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ecoles': {
+      id: '/ecoles'
+      path: '/ecoles'
+      fullPath: '/ecoles'
+      preLoaderRoute: typeof EcolesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/glossaire': {
+      id: '/glossaire'
+      path: '/glossaire'
+      fullPath: '/glossaire'
+      preLoaderRoute: typeof GlossaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grades': {
+      id: '/grades'
+      path: '/grades'
+      fullPath: '/grades'
+      preLoaderRoute: typeof GradesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipements/': {
+      id: '/equipements/'
+      path: '/equipements'
+      fullPath: '/equipements/'
+      preLoaderRoute: typeof EquipementsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipements/$equipement': {
+      id: '/equipements/$equipement'
+      path: '/equipements/$equipement'
+      fullPath: '/equipements/$equipement'
+      preLoaderRoute: typeof EquipementsEquipementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organisation/': {
+      id: '/organisation/'
+      path: '/organisation'
+      fullPath: '/organisation/'
+      preLoaderRoute: typeof OrganisationIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organisation/$regiment': {
+      id: '/organisation/$regiment'
+      path: '/organisation/$regiment'
+      fullPath: '/organisation/$regiment'
+      preLoaderRoute: typeof OrganisationRegimentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EcolesRoute: EcolesRoute,
+  GlossaireRoute: GlossaireRoute,
+  GradesRoute: GradesRoute,
+  EquipementsEquipementRoute: EquipementsEquipementRoute,
+  OrganisationRegimentRoute: OrganisationRegimentRoute,
+  EquipementsIndexRoute: EquipementsIndexRoute,
+  OrganisationIndexRoute: OrganisationIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
