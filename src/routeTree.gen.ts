@@ -10,12 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GradesRouteImport } from './routes/grades'
+import { Route as EquipementsIndexRouteImport } from './routes/equipements.index'
+import { Route as EquipementsEquipementRouteImport } from './routes/equipements.$equipement'
 import { Route as OrganisationIndexRouteImport } from './routes/organisation.index'
 import { Route as OrganisationRegimentRouteImport } from './routes/organisation.$regiment'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GradesRoute = GradesRouteImport.update({
+  id: '/grades',
+  path: '/grades',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipementsIndexRoute = EquipementsIndexRouteImport.update({
+  id: '/equipements/',
+  path: '/equipements/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipementsEquipementRoute = EquipementsEquipementRouteImport.update({
+  id: '/equipements/$equipement',
+  path: '/equipements/$equipement',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrganisationIndexRoute = OrganisationIndexRouteImport.update({
@@ -31,31 +49,62 @@ const OrganisationRegimentRoute = OrganisationRegimentRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/grades': typeof GradesRoute
+  '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/equipements/': typeof EquipementsIndexRoute
   '/organisation/': typeof OrganisationIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/grades': typeof GradesRoute
+  '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/equipements': typeof EquipementsIndexRoute
   '/organisation': typeof OrganisationIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/grades': typeof GradesRoute
+  '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
+  '/equipements/': typeof EquipementsIndexRoute
   '/organisation/': typeof OrganisationIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/organisation/$regiment' | '/organisation/'
+  fullPaths:
+    | '/'
+    | '/grades'
+    | '/equipements/$equipement'
+    | '/organisation/$regiment'
+    | '/equipements/'
+    | '/organisation/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/organisation/$regiment' | '/organisation'
-  id: '__root__' | '/' | '/organisation/$regiment' | '/organisation/'
+  to:
+    | '/'
+    | '/grades'
+    | '/equipements/$equipement'
+    | '/organisation/$regiment'
+    | '/equipements'
+    | '/organisation'
+  id:
+    | '__root__'
+    | '/'
+    | '/grades'
+    | '/equipements/$equipement'
+    | '/organisation/$regiment'
+    | '/equipements/'
+    | '/organisation/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GradesRoute: typeof GradesRoute
+  EquipementsEquipementRoute: typeof EquipementsEquipementRoute
   OrganisationRegimentRoute: typeof OrganisationRegimentRoute
+  EquipementsIndexRoute: typeof EquipementsIndexRoute
   OrganisationIndexRoute: typeof OrganisationIndexRoute
 }
 
@@ -66,6 +115,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grades': {
+      id: '/grades'
+      path: '/grades'
+      fullPath: '/grades'
+      preLoaderRoute: typeof GradesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipements/': {
+      id: '/equipements/'
+      path: '/equipements'
+      fullPath: '/equipements/'
+      preLoaderRoute: typeof EquipementsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipements/$equipement': {
+      id: '/equipements/$equipement'
+      path: '/equipements/$equipement'
+      fullPath: '/equipements/$equipement'
+      preLoaderRoute: typeof EquipementsEquipementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/organisation/': {
@@ -87,7 +157,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GradesRoute: GradesRoute,
+  EquipementsEquipementRoute: EquipementsEquipementRoute,
   OrganisationRegimentRoute: OrganisationRegimentRoute,
+  EquipementsIndexRoute: EquipementsIndexRoute,
   OrganisationIndexRoute: OrganisationIndexRoute,
 }
 export const routeTree = rootRouteImport
