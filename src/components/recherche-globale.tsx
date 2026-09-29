@@ -51,7 +51,7 @@ export function RechercheGlobale({ variant = "bar" }: { variant?: "bar" | "icone
               autoFocus
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Régiment, grade, véhicule, sigle…"
+              placeholder="Régiment, bataille, véhicule, sigle…"
               className="h-14 w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
             />
           </div>

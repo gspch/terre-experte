@@ -13,8 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EcolesRouteImport } from './routes/ecoles'
 import { Route as GlossaireRouteImport } from './routes/glossaire'
 import { Route as GradesRouteImport } from './routes/grades'
+import { Route as OperationsRouteImport } from './routes/operations'
 import { Route as EquipementsIndexRouteImport } from './routes/equipements.index'
 import { Route as EquipementsEquipementRouteImport } from './routes/equipements.$equipement'
+import { Route as OperationsIndexRouteImport } from './routes/operations.index'
+import { Route as OperationsOperationRouteImport } from './routes/operations.$operation'
 import { Route as OrganisationIndexRouteImport } from './routes/organisation.index'
 import { Route as OrganisationRegimentRouteImport } from './routes/organisation.$regiment'
 
@@ -38,6 +41,11 @@ const GradesRoute = GradesRouteImport.update({
   path: '/grades',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OperationsRoute = OperationsRouteImport.update({
+  id: '/operations',
+  path: '/operations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EquipementsIndexRoute = EquipementsIndexRouteImport.update({
   id: '/equipements/',
   path: '/equipements/',
@@ -47,6 +55,16 @@ const EquipementsEquipementRoute = EquipementsEquipementRouteImport.update({
   id: '/equipements/$equipement',
   path: '/equipements/$equipement',
   getParentRoute: () => rootRouteImport,
+} as any)
+const OperationsIndexRoute = OperationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OperationsRoute,
+} as any)
+const OperationsOperationRoute = OperationsOperationRouteImport.update({
+  id: '/$operation',
+  path: '/$operation',
+  getParentRoute: () => OperationsRoute,
 } as any)
 const OrganisationIndexRoute = OrganisationIndexRouteImport.update({
   id: '/organisation/',
@@ -64,9 +82,12 @@ export interface FileRoutesByFullPath {
   '/ecoles': typeof EcolesRoute
   '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
+  '/operations': typeof OperationsRouteWithChildren
   '/equipements/$equipement': typeof EquipementsEquipementRoute
+  '/operations/$operation': typeof OperationsOperationRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
   '/equipements/': typeof EquipementsIndexRoute
+  '/operations/': typeof OperationsIndexRoute
   '/organisation/': typeof OrganisationIndexRoute
 }
 export interface FileRoutesByTo {
@@ -75,8 +96,10 @@ export interface FileRoutesByTo {
   '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
   '/equipements/$equipement': typeof EquipementsEquipementRoute
+  '/operations/$operation': typeof OperationsOperationRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
   '/equipements': typeof EquipementsIndexRoute
+  '/operations': typeof OperationsIndexRoute
   '/organisation': typeof OrganisationIndexRoute
 }
 export interface FileRoutesById {
@@ -85,9 +108,12 @@ export interface FileRoutesById {
   '/ecoles': typeof EcolesRoute
   '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
+  '/operations': typeof OperationsRouteWithChildren
   '/equipements/$equipement': typeof EquipementsEquipementRoute
+  '/operations/$operation': typeof OperationsOperationRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
   '/equipements/': typeof EquipementsIndexRoute
+  '/operations/': typeof OperationsIndexRoute
   '/organisation/': typeof OrganisationIndexRoute
 }
 export interface FileRouteTypes {
@@ -97,9 +123,12 @@ export interface FileRouteTypes {
     | '/ecoles'
     | '/glossaire'
     | '/grades'
+    | '/operations'
     | '/equipements/$equipement'
+    | '/operations/$operation'
     | '/organisation/$regiment'
     | '/equipements/'
+    | '/operations/'
     | '/organisation/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -108,8 +137,10 @@ export interface FileRouteTypes {
     | '/glossaire'
     | '/grades'
     | '/equipements/$equipement'
+    | '/operations/$operation'
     | '/organisation/$regiment'
     | '/equipements'
+    | '/operations'
     | '/organisation'
   id:
     | '__root__'
@@ -117,9 +148,12 @@ export interface FileRouteTypes {
     | '/ecoles'
     | '/glossaire'
     | '/grades'
+    | '/operations'
     | '/equipements/$equipement'
+    | '/operations/$operation'
     | '/organisation/$regiment'
     | '/equipements/'
+    | '/operations/'
     | '/organisation/'
   fileRoutesById: FileRoutesById
 }
@@ -128,6 +162,7 @@ export interface RootRouteChildren {
   EcolesRoute: typeof EcolesRoute
   GlossaireRoute: typeof GlossaireRoute
   GradesRoute: typeof GradesRoute
+  OperationsRoute: typeof OperationsRouteWithChildren
   EquipementsEquipementRoute: typeof EquipementsEquipementRoute
   OrganisationRegimentRoute: typeof OrganisationRegimentRoute
   EquipementsIndexRoute: typeof EquipementsIndexRoute
@@ -164,6 +199,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GradesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/operations': {
+      id: '/operations'
+      path: '/operations'
+      fullPath: '/operations'
+      preLoaderRoute: typeof OperationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/equipements/': {
       id: '/equipements/'
       path: '/equipements'
@@ -177,6 +219,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/equipements/$equipement'
       preLoaderRoute: typeof EquipementsEquipementRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/operations/': {
+      id: '/operations/'
+      path: '/'
+      fullPath: '/operations/'
+      preLoaderRoute: typeof OperationsIndexRouteImport
+      parentRoute: typeof OperationsRoute
+    }
+    '/operations/$operation': {
+      id: '/operations/$operation'
+      path: '/$operation'
+      fullPath: '/operations/$operation'
+      preLoaderRoute: typeof OperationsOperationRouteImport
+      parentRoute: typeof OperationsRoute
     }
     '/organisation/': {
       id: '/organisation/'
@@ -195,11 +251,26 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface OperationsRouteChildren {
+  OperationsOperationRoute: typeof OperationsOperationRoute
+  OperationsIndexRoute: typeof OperationsIndexRoute
+}
+
+const OperationsRouteChildren: OperationsRouteChildren = {
+  OperationsOperationRoute: OperationsOperationRoute,
+  OperationsIndexRoute: OperationsIndexRoute,
+}
+
+const OperationsRouteWithChildren = OperationsRoute._addFileChildren(
+  OperationsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EcolesRoute: EcolesRoute,
   GlossaireRoute: GlossaireRoute,
   GradesRoute: GradesRoute,
+  OperationsRoute: OperationsRouteWithChildren,
   EquipementsEquipementRoute: EquipementsEquipementRoute,
   OrganisationRegimentRoute: OrganisationRegimentRoute,
   EquipementsIndexRoute: EquipementsIndexRoute,

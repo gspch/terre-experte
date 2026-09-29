@@ -6,6 +6,8 @@ import { armes, brigades, divisions } from "@/data/organisation";
 import { ecoles } from "@/data/ecoles";
 import { equipements } from "@/data/equipements";
 import { regiments } from "@/data/regiments";
+import { engagements, labelsTypeEngagement } from "@/data/operations";
+import { mediasRegiments } from "@/data/medias-regiments";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/organisation/$regiment")({
@@ -23,12 +25,14 @@ export const Route = createFileRoute("/organisation/$regiment")({
     const r = loaderData.regiment;
     const titre = `${r.nom} (${r.sigle}) — ${r.garnison}`;
     const desc = `${r.specialite} Garnison : ${r.garnison}. ${r.histoire}`.slice(0, 180);
+    const media = mediasRegiments[r.id];
     return {
       meta: [
         { title: titre },
         { name: "description", content: desc },
         { property: "og:title", content: titre },
         { property: "og:description", content: desc },
+        ...(media ? [{ property: "og:image", content: media.src }, { name: "twitter:card", content: "summary_large_image" }] : []),
       ],
     };
   },
@@ -57,6 +61,8 @@ function FicheRegiment() {
   const ecole = ecoles.find((e) => e.id === arme.ecoleId);
   const materiels = equipements.filter((e) => r.equipements.includes(e.id));
   const favori = pret && estFavori(`reg-${r.id}`);
+  const operations = engagements.filter((engagement) => engagement.regimentIds.includes(r.id));
+  const media = mediasRegiments[r.id];
 
   return (
     <div>
@@ -105,6 +111,20 @@ function FicheRegiment() {
             <p className="mt-3 text-lg text-foreground">{r.specialite}</p>
           </section>
 
+          {operations.length > 0 && (
+            <section>
+              <h2 className="stencil text-sm text-muted-foreground">Engagements connus</h2>
+              <div className="mt-3 divide-y divide-border border-y border-border">
+                {operations.map((operation) => (
+                  <Link key={operation.id} to="/operations/$operation" params={{ operation: operation.id }} className="flex items-center justify-between gap-4 py-3 text-sm transition-colors hover:text-primary">
+                    <span>{operation.nom}</span>
+                    <span className="rule-label shrink-0">{labelsTypeEngagement[operation.type]} · {operation.anneeDebut}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section>
             <h2 className="stencil text-sm text-muted-foreground">Histoire et traditions</h2>
             <p className="mt-3 text-muted-foreground">{r.histoire}</p>
@@ -112,9 +132,15 @@ function FicheRegiment() {
 
           <section>
             <h2 className="stencil text-sm text-muted-foreground">Insigne</h2>
+            {media && (
+              <figure className="mt-3 flex flex-col items-start gap-4 rounded-sm border border-border bg-card p-5 sm:flex-row">
+                <img src={media.src} alt={media.alt} className="h-40 w-40 shrink-0 object-contain" />
+                <figcaption className="text-xs text-muted-foreground">{media.auteur} · {media.licence}<br /><a href={media.sourceUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block underline underline-offset-4 hover:text-foreground">Consulter la source et les conditions</a></figcaption>
+              </figure>
+            )}
             <p className="mt-3 text-muted-foreground">{r.insigne}</p>
             <p className="mt-2 text-xs text-muted-foreground">
-              Description héraldique — l'insigne lui-même n'est pas reproduit.
+              {media ? "Description héraldique et visuel documentaire sourcé ; les droits restent attachés à la licence indiquée." : "Aucun visuel libre et suffisamment fiable n’a été retenu ; la description héraldique reste disponible."}
             </p>
           </section>
 

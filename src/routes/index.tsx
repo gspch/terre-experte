@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Boxes, GraduationCap, Network, Star } from "lucide-react";
+import { ArrowRight, Boxes, GraduationCap, Map, Network, Star } from "lucide-react";
 
 import { chiffresCles } from "@/data/organisation";
 import { RechercheGlobale } from "@/components/recherche-globale";
@@ -19,12 +19,20 @@ export const Route = createFileRoute("/")({
         content:
           "Divisions, brigades, régiments, grades, armement et écoles : tout comprendre de l'armée de terre.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Accueil,
 });
 
 const domaines = [
+  {
+    to: "/operations",
+    icone: Map,
+    titre: "Opérations et batailles",
+    resume: "De l’Indochine à l’Europe orientale : chronologie, contextes, unités engagées et conséquences.",
+  },
   {
     to: "/organisation",
     icone: Network,
@@ -63,8 +71,8 @@ function Accueil() {
             <span className="text-primary"> jusque dans le détail</span>
           </h1>
           <p className="mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Une encyclopédie visuelle de l'organisation, des régiments, des grades, de l'armement et
-            des écoles. Parcourez la structure, suivez les filiations, apprenez le vocabulaire.
+            Une encyclopédie visuelle de l'organisation, des régiments, des grades, de l'armement,
+            des écoles et des engagements depuis 1945. Suivez les filiations et apprenez le vocabulaire.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
@@ -91,7 +99,7 @@ function Accueil() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="stencil text-sm text-muted-foreground">Les quatre domaines</h2>
+        <h2 className="stencil text-sm text-muted-foreground">Les cinq domaines</h2>
         <div className="mt-6 grid gap-px bg-border sm:grid-cols-2">
           {domaines.map((d) => (
             <Link

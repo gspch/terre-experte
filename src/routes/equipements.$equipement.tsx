@@ -4,6 +4,8 @@ import { ArrowLeft, Star } from "lucide-react";
 import { categoriesEquipement, equipements } from "@/data/equipements";
 import { armes } from "@/data/organisation";
 import { regiments } from "@/data/regiments";
+import { engagements, labelsTypeEngagement } from "@/data/operations";
+import { mediasEquipements } from "@/data/medias-equipements";
 import { useFavoris } from "@/hooks/use-favoris";
 import { cn } from "@/lib/utils";
 
@@ -20,12 +22,15 @@ export const Route = createFileRoute("/equipements/$equipement")({
     const e = loaderData.equipement;
     const titre = `${e.nom} — ${e.role}`;
     const desc = e.description.slice(0, 180);
+    const media = mediasEquipements[e.id as keyof typeof mediasEquipements];
     return {
       meta: [
         { title: titre },
         { name: "description", content: desc },
         { property: "og:title", content: titre },
         { property: "og:description", content: desc },
+        { property: "og:image", content: media.src },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
     };
   },
@@ -49,6 +54,8 @@ function FicheEquipement() {
   const { estFavori, basculer, pret } = useFavoris();
   const favori = pret && estFavori(`eq-${e.id}`);
   const utilisateurs = regiments.filter((r) => r.equipements.includes(e.id));
+  const operations = engagements.filter((engagement) => engagement.equipementIds.includes(e.id));
+  const media = mediasEquipements[e.id as keyof typeof mediasEquipements];
 
   return (
     <div>
@@ -85,6 +92,12 @@ function FicheEquipement() {
 
       <div className="mx-auto grid max-w-5xl gap-8 px-4 py-12 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-10">
+          <figure className="overflow-hidden rounded-sm border border-border bg-card">
+            <img src={media.src} alt={media.alt} className="aspect-[16/9] w-full object-cover" />
+            <figcaption className="px-4 py-3 text-xs text-muted-foreground">
+              {media.auteur} · {media.licence} · <a href={media.sourceUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-foreground">source</a>
+            </figcaption>
+          </figure>
           <section>
             <h2 className="stencil text-sm text-muted-foreground">Description</h2>
             <p className="mt-3 text-muted-foreground">{e.description}</p>
@@ -114,6 +127,20 @@ function FicheEquipement() {
                     className="rounded-sm border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
                   >
                     {r.sigle}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {operations.length > 0 && (
+            <section>
+              <h2 className="stencil text-sm text-muted-foreground">Engagements documentés</h2>
+              <div className="mt-3 divide-y divide-border border-y border-border">
+                {operations.map((operation) => (
+                  <Link key={operation.id} to="/operations/$operation" params={{ operation: operation.id }} className="flex items-center justify-between gap-4 py-3 text-sm transition-colors hover:text-primary">
+                    <span>{operation.nom}</span>
+                    <span className="rule-label shrink-0">{labelsTypeEngagement[operation.type]} · {operation.anneeDebut}</span>
                   </Link>
                 ))}
               </div>

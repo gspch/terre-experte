@@ -116,3 +116,42 @@ export interface TermeGlossaire {
   definition: string;
   categorie: string;
 }
+
+export type TypeEngagement = "theatre" | "operation" | "bataille";
+
+export type ZoneOperation = "Asie" | "Afrique" | "Moyen-Orient" | "Europe";
+
+export interface SourceDocumentaire {
+  titre: string;
+  organisme: string;
+  url: string;
+}
+
+export interface MediaDocumentaire {
+  src: string;
+  alt: string;
+  auteur: string;
+  licence: string;
+  sourceUrl: string;
+}
+
+export interface Engagement {
+  id: string;
+  nom: string;
+  type: TypeEngagement;
+  zone: ZoneOperation;
+  lieu: string;
+  debut: string;
+  fin: string;
+  anneeDebut: number;
+  resume: string;
+  contexte: string;
+  objectifs: string;
+  deroulement: string;
+  resultat: string;
+  consequences: string;
+  regimentIds: string[];
+  equipementIds: string[];
+  sources: SourceDocumentaire[];
+}
+

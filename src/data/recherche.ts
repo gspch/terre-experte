@@ -2,9 +2,10 @@ import { equipements } from "./equipements";
 import { ecoles } from "./ecoles";
 import { glossaire } from "./glossaire";
 import { grades } from "./grades";
+import { engagements, labelsTypeEngagement } from "./operations";
 import { regiments } from "./regiments";
 
-export type ResultatType = "Régiment" | "Grade" | "Équipement" | "École" | "Sigle";
+export type ResultatType = "Régiment" | "Grade" | "Équipement" | "École" | "Sigle" | "Histoire";
 
 export interface Resultat {
   id: string;
@@ -61,6 +62,15 @@ export const indexRecherche: Resultat[] = [
     sousTitre: t.definition,
     to: "/glossaire",
     texte: `${t.sigle} ${t.definition}`.toLowerCase(),
+  })),
+  ...engagements.map((e) => ({
+    id: `op-${e.id}`,
+    type: "Histoire" as const,
+    titre: e.nom,
+    sousTitre: `${labelsTypeEngagement[e.type]} · ${e.debut} — ${e.fin}`,
+    to: "/operations/$operation",
+    params: { operation: e.id },
+    texte: `${e.nom} ${e.lieu} ${e.zone} ${e.resume} ${e.contexte}`.toLowerCase(),
   })),
 ];
 
