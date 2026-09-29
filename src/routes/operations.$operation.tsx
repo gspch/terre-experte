@@ -21,7 +21,7 @@ export const Route = createFileRoute("/operations/$operation")({
       { property: "og:title", content: engagement.nom },
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
     ] };
   },
   component: OperationPage,
