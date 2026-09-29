@@ -1,6 +1,7 @@
 import type { Regiment } from "./types";
+import { regimentsComplements } from "./regiments-complements";
 
-export const regiments: Regiment[] = [
+const regimentsBase: Regiment[] = [
   {
     id: "1er-rima",
     nom: "1er régiment d'infanterie de marine",
@@ -817,4 +818,9 @@ export const regiments: Regiment[] = [
       "Il prépare les unités avant projection en reconstituant un adversaire crédible dans les grands centres d'entraînement.",
     equipements: ["leclerc", "griffon", "hk416f"],
   },
+];
+
+export const regiments: Regiment[] = [
+  ...regimentsBase,
+  ...regimentsComplements.filter((c) => !regimentsBase.some((r) => r.id === c.id)),
 ];

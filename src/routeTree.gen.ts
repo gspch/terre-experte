@@ -14,6 +14,7 @@ import { Route as EcolesRouteImport } from './routes/ecoles'
 import { Route as GlossaireRouteImport } from './routes/glossaire'
 import { Route as GradesRouteImport } from './routes/grades'
 import { Route as OperationsRouteImport } from './routes/operations'
+import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as EquipementsIndexRouteImport } from './routes/equipements.index'
 import { Route as EquipementsEquipementRouteImport } from './routes/equipements.$equipement'
 import { Route as OperationsIndexRouteImport } from './routes/operations.index'
@@ -44,6 +45,11 @@ const GradesRoute = GradesRouteImport.update({
 const OperationsRoute = OperationsRouteImport.update({
   id: '/operations',
   path: '/operations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReserveRoute = ReserveRouteImport.update({
+  id: '/reserve',
+  path: '/reserve',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EquipementsIndexRoute = EquipementsIndexRouteImport.update({
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
   '/operations': typeof OperationsRouteWithChildren
+  '/reserve': typeof ReserveRoute
   '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/operations/$operation': typeof OperationsOperationRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/ecoles': typeof EcolesRoute
   '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
+  '/reserve': typeof ReserveRoute
   '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/operations/$operation': typeof OperationsOperationRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/glossaire': typeof GlossaireRoute
   '/grades': typeof GradesRoute
   '/operations': typeof OperationsRouteWithChildren
+  '/reserve': typeof ReserveRoute
   '/equipements/$equipement': typeof EquipementsEquipementRoute
   '/operations/$operation': typeof OperationsOperationRoute
   '/organisation/$regiment': typeof OrganisationRegimentRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/glossaire'
     | '/grades'
     | '/operations'
+    | '/reserve'
     | '/equipements/$equipement'
     | '/operations/$operation'
     | '/organisation/$regiment'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/ecoles'
     | '/glossaire'
     | '/grades'
+    | '/reserve'
     | '/equipements/$equipement'
     | '/operations/$operation'
     | '/organisation/$regiment'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/glossaire'
     | '/grades'
     | '/operations'
+    | '/reserve'
     | '/equipements/$equipement'
     | '/operations/$operation'
     | '/organisation/$regiment'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   GlossaireRoute: typeof GlossaireRoute
   GradesRoute: typeof GradesRoute
   OperationsRoute: typeof OperationsRouteWithChildren
+  ReserveRoute: typeof ReserveRoute
   EquipementsEquipementRoute: typeof EquipementsEquipementRoute
   OrganisationRegimentRoute: typeof OrganisationRegimentRoute
   EquipementsIndexRoute: typeof EquipementsIndexRoute
@@ -204,6 +217,13 @@ declare module '@tanstack/react-router' {
       path: '/operations'
       fullPath: '/operations'
       preLoaderRoute: typeof OperationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reserve': {
+      id: '/reserve'
+      path: '/reserve'
+      fullPath: '/reserve'
+      preLoaderRoute: typeof ReserveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/equipements/': {
@@ -271,6 +291,7 @@ const rootRouteChildren: RootRouteChildren = {
   GlossaireRoute: GlossaireRoute,
   GradesRoute: GradesRoute,
   OperationsRoute: OperationsRouteWithChildren,
+  ReserveRoute: ReserveRoute,
   EquipementsEquipementRoute: EquipementsEquipementRoute,
   OrganisationRegimentRoute: OrganisationRegimentRoute,
   EquipementsIndexRoute: EquipementsIndexRoute,

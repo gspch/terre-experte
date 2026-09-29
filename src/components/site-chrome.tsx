@@ -11,6 +11,7 @@ const liens = [
   { to: "/equipements", label: "Équipements" },
   { to: "/operations", label: "Opérations" },
   { to: "/ecoles", label: "Écoles" },
+  { to: "/reserve", label: "Réserve" },
   { to: "/glossaire", label: "Glossaire" },
 ] as const;
 

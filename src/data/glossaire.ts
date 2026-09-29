@@ -37,4 +37,12 @@ export const glossaire: TermeGlossaire[] = [
   { sigle: "Camerone", definition: "Combat de 1863 au Mexique, fête annuelle de la Légion étrangère le 30 avril.", categorie: "Traditions" },
   { sigle: "Képi blanc", definition: "Coiffe des légionnaires du rang, remise à l'issue de la marche du même nom.", categorie: "Traditions" },
   { sigle: "Tarte", definition: "Béret large des chasseurs alpins, porté incliné et caractéristique de la 27e BIM.", categorie: "Traditions" },
+  { sigle: "RO1", definition: "Réserve opérationnelle de premier niveau : volontaires sous contrat ESR.", categorie: "Réserve" },
+  { sigle: "RO2", definition: "Réserve opérationnelle de second niveau : anciens militaires soumis à obligation de disponibilité.", categorie: "Réserve" },
+  { sigle: "ESR", definition: "Engagement à servir dans la réserve, contrat de 1 à 5 ans du réserviste.", categorie: "Réserve" },
+  { sigle: "Garde nationale", definition: "Ensemble des réserves des armées, de la gendarmerie et de la police, créé en 2016.", categorie: "Réserve" },
+  { sigle: "Sentinelle", definition: "Opération de protection du territoire national lancée en 2015.", categorie: "Opérations" },
+  { sigle: "BSPP", definition: "Brigade de sapeurs-pompiers de Paris, unité militaire de l'armée de terre (génie).", categorie: "Organisation" },
+  { sigle: "UIISC", definition: "Unité d'instruction et d'intervention de la sécurité civile : sapeurs-sauveteurs militaires.", categorie: "Organisation" },
+  { sigle: "GIGN", definition: "Groupe d'intervention de la gendarmerie nationale ; la gendarmerie est une force armée distincte de l'armée de terre.", categorie: "Forces partenaires" },
 ];
