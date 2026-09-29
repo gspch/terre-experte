@@ -127,6 +127,14 @@ export interface SourceDocumentaire {
   url: string;
 }
 
+export interface MediaDocumentaire {
+  src: string;
+  alt: string;
+  auteur: string;
+  licence: string;
+  sourceUrl: string;
+}
+
 export interface Engagement {
   id: string;
   nom: string;

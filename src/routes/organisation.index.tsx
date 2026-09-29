@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { armes, brigades, divisions } from "@/data/organisation";
 import { regiments } from "@/data/regiments";
+import { mediasRegiments } from "@/data/medias-regiments";
 import type { ArmeId } from "@/data/types";
 import { cn } from "@/lib/utils";
 
@@ -176,23 +177,21 @@ function OrganisationPage() {
         <div className="mt-3 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
           {liste.map((r) => {
             const a = armes.find((x) => x.id === r.arme)!;
+            const media = mediasRegiments[r.id];
             return (
               <Link
                 key={r.id}
                 to="/organisation/$regiment"
                 params={{ regiment: r.id }}
-                className="group flex flex-col bg-card p-5 transition-colors hover:bg-secondary"
+                className="group flex bg-card p-5 transition-colors hover:bg-secondary"
               >
-                <span className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-primary" />
-                  <span className="stencil text-sm text-foreground">{r.sigle}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-primary" /><span className="stencil text-sm text-foreground">{r.sigle}</span></span>
+                  <span className="mt-2 block text-sm text-foreground">{r.nom}</span>
+                  <span className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{r.garnison} ({r.departement})</span>
+                  <span className="rule-label mt-3 block">{a.nom}</span>
                 </span>
-                <span className="mt-2 text-sm text-foreground">{r.nom}</span>
-                <span className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <MapPin className="h-3.5 w-3.5" />
-                  {r.garnison} ({r.departement})
-                </span>
-                <span className="rule-label mt-3">{a.nom}</span>
+                {media && <img src={media.src} alt="" loading="lazy" className="ml-3 h-20 w-20 shrink-0 object-contain" />}
               </Link>
             );
           })}
